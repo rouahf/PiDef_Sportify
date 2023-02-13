@@ -1,0 +1,71 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur index{% endblock %}
+
+{% block body %}
+<style>
+  .element {
+    text-align: right;
+  }
+</style>
+<div class="element">
+    <h1>Utilisateur index</h1>
+  <br></br>
+<div class="container">
+    <table class="table table-dark table-striped">
+  
+<div class="mt-5 mb-6 ">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Mot de passe</th>
+                <th>Role</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        </div>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.id }}</td>
+                <td>{{ utilisateur.nomut }}</td>
+                <td>{{ utilisateur.prenomut }}</td>
+                <td>{{ utilisateur.emailut }}</td>
+                <td>{{ utilisateur.mdput }}</td>
+                 <td>{{ utilisateur.roleutilisateur}}</td>
+                <td>
+                   <div class="my-2"></div>
+                                    <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-success btn-icon-split">
+                                        
+                                        <span class="text">show</span>
+                                    </a>
+              <div class="my-2"></div>
+               
+                                     <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}"class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">edit</span>
+                                    </a>
+                
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+      <div class="my-2">
+                                      <a href="{{ path('app_utilisateur_new') }}" class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">Create new</span>
+                                    </a></div>
+
+                                    </div>
+   
+{% endblock %}

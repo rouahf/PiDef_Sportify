@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Role{% endblock %}
+
+{% block body %}
+    <h1>Create new Role</h1>
+<div class="container">
+  <table class="table table-dark table-striped">
+<div class="mt-5 mb-6 ">
+    {{ include('roleuser/_form.html.twig') }}
+                             <div class="my-2">
+                                     <a href="{{ path('app_roleuser_index') }}"  class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">back to list</span>
+                                    </a>
+                                    </div>
+</div>
+         </div>  
+{% endblock %}

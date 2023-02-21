@@ -1,0 +1,31 @@
+{% extends 'Cal.html.twig' %}
+
+{% block body %}
+    <div id="calendar"></div>
+{% endblock %}
+
+{% block javascripts %}
+
+
+    {{ parent() }}
+    <script src="{{ asset('js/fullcalendar.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'dayGrid', 'timeGrid', 'list' ],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                defaultView: 'dayGridMonth',
+                events: '{{ path('date_cours') }}',
+                eventClick: function(info) {
+                    window.location.href = info.event.url;
+                }
+            });
+            calendar.render();
+        });
+    </script>
+{% endblock %}

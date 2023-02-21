@@ -1,0 +1,61 @@
+{% extends 'base2front.html.twig' %}
+
+{% block title %} Shop {% endblock %}
+
+{% block body %}
+
+    
+           <section class="blog-section spad">
+            <div class="container">
+                 <div class="row">
+                <div class="col-lg-8 p-0">
+                    <div class="blog-item">   
+                      </div>
+                <div class="col-lg-4 col-md-8 p-0">
+                    <div class="sidebar-option">
+                        <div class="so-categories">
+                            <h5 class="title">Categories</h5>
+                            <ul>
+                   {% for category in categories %}
+                                <li><a href="#">{{ category.catTitle }} </a></li>
+                               
+            
+                         
+                             
+                            </ul>
+                        </div>
+              
+                    </div>
+                </div>
+            </div>
+        </div>
+            {% for product in product %}
+                {% if (category.catTitle == product.getCat().getCatTitle() ) %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="ts-item set-bg" >
+                   <img src="/uploads/{{ product.image }}" alt="image" >
+             
+                        <div class="ts_text">
+                            <h4>{{ product.nameProduits }}</h4>
+                            <span>{{ product.description }}</span>
+                            <h4>{{ product.prix }}</h4>
+                           
+                           
+
+                          <a href="{{path("add", {id: product.id})}}" class="primary-btn pricing-btn">Add to cart</a>
+
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                 </div>
+                  {% endif %} 
+                 {% endfor %}
+                <!--************************************************-->
+          
+           {% endfor %}   
+    </section>
+    
+{% endblock %}

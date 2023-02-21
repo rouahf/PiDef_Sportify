@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product {% endblock %}
+
+{% block body %}
+    <h1>Product </h1>
+
+   
+
+
+
+
+<div class="container">
+    <table class="table table-dark table-striped">
+  
+<div class="mt-5 mb-6 ">
+           <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name_produits</th>
+                <th>Description </th>
+                <th>Quati_stock </th>
+                <th>Prix</th>
+                <th>Image</th>
+                <th>category name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.nameProduits }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.quatiStock }}</td>
+                <td>{{ product.prix }}</td>
+                <td>  
+                <img src="/uploads/{{ product.image }}" alt="image" width="100" height="100">
+                </td>
+                <td>{{ product.getCat().getCatTitle() }}</td>
+                <td>
+
+                 <div class="my-2"></div>
+                                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-success btn-icon-split">
+                                        
+                                        <span class="text">show</span>
+                                    </a>
+              <div class="my-2"></div>
+                                    <a href="{{ path('app_product_edit', {'id': product.id})}}"  class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">edit</span>
+                                    </a>
+                </td>
+            </tr>
+                   
+               
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+  <div class="my-2">
+         <a href="{{ path('app_product_new') }}" class="btn btn-success btn-icon-split">
+                                      
+          <span class="text">Create new</span>
+        </a></div>
+   
+{% endblock %}
+

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <h1>Product</h1>
+
+<div class="container">
+    <table class="table table-dark table-striped">
+  
+<div class="mt-5 mb-6 ">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <th>Name_produits</th>
+                <td>{{ product.nameProduits }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <th>Quati_stock</th>
+                <td>{{ product.quatiStock }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ product.prix }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ product.image }}</td>
+            </tr>
+             <tr>
+                <th>category name</th>
+                <td>{{ product.getCat().getCatTitle()}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="my-2">
+                                     <a href="{{ path('app_product_index') }}"  class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">back tolist</span>
+                                    </a>
+                                    </div>
+    <div class="my-2">
+                                    <a href="{{ path('app_product_edit', {'id': product.id})}}"  class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">edit</span>
+                                    </a>
+</div>
+    {{ include('product/_delete_form.html.twig') }}
+{% endblock %}

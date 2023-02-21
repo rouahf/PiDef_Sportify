@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Type index{% endblock %}
+
+{% block body %}
+    <h1>Type index</h1>
+  <br><br> <br><br> <br><br> <br><br> <br><br>
+<div class="container">
+    <table class="table table-dark table-striped">
+    <div class="mt-5 mb-6 ">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom_type</th>
+                <th>actions</th>
+            </tr>
+
+        </thead>
+          </div>
+        
+        <tbody>
+        {% for type in types %}
+            <tr>
+                <td>{{ type.id }}</td>
+                <td>{{ type.nomType }}</td>
+                <td>
+                 <div class="my-2"></div>
+                    <a href="{{ path('app_type_show', {'id': type.id}) }}"class="btn btn-success btn-icon-split"><span class="text">show</span>
+                     </a>
+              <div class="my-2"></div>
+                    <a href="{{ path('app_type_edit', {'id': type.id}) }}"class="btn btn-success btn-icon-split">
+                    <span class="text">edit</span></a>
+                </td>
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+  <div class="my-2">
+                                      <a href="{{ path('app_type_new') }}" class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">Create new</span>
+                                    </a></div>
+   
+{% endblock %}
+
+

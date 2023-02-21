@@ -1,0 +1,35 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+ <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title contact-title">
+    <h1>Register</h1>
+      </div> 
+                </div>
+                 <div class="col-lg-6">
+                    <div class="leave-comment">
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.nom) }}
+        {{ form_row(registrationForm.prenom) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+     </div>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+{% endblock %}

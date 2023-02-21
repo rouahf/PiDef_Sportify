@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %} COURS {% endblock %}</title>
+        <link rel="icon" href="back/data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run composer require symfony/webpack-encore-bundle to start using Symfony UX #}
+        {% block stylesheets %}
+             <link href="{{asset('back/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link
+        href="{{asset('back/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i')}}"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{asset('back/css/sb-admin-2.min.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="{{asset('back/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+        {% endblock %}
+
+      
+    </head>
+  <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="back/index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="back/index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+          
+           
+
+         
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+           
+           
+
+            <!-- Nav Item - Tables -->
+           
+            <li class="nav-item active">
+                <a class="nav-link" href="{{path('app_user_index')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Users</span></a>
+            </li> 
+            <li class="nav-item active">
+                <a class="nav-link" href="{{path('app_roleuser_index')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Roles</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Produits</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Categories</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>commandes</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>cours</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>planning</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>evenement</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>tools</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>articles</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>commentaires</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link"  href="{{asset('back/cours.html') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>reclamations</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>priorite</span></a>
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{{asset('back/cours.html')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>type</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+    <body>
+        {% block body %}
+   
+        {% endblock %}
+    </body>
+      <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>  &copy; </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+              {% block javascripts %}
+          
+             <!-- Bootstrap core JavaScript-->
+    <script src="{{asset('back/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('back/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{{asset('back/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{asset('back/css/sb-admin-2.min.js')}}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{asset('back/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('back/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    
+    <script src="{{asset('back/js/demo/datatables-demo.js')}}"></script>
+        {% endblock %}
+
+</html>

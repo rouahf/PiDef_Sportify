@@ -1,0 +1,132 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Articles {% endblock %}
+
+{% block body %}
+  <section class="breadcrumb-section set-bg" data-setbg="{{asset('font/img/breadcrumb-bg.jpg')}}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Our Blog</h2>
+                        <div class="bt-option">
+                            <a href="./index.html">Home</a>
+                            <a href="#">Pages</a>
+                            <span>Blog</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+ <!-- Blog Section Begin -->
+    <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 p-0">
+                {% for article in articles %}
+                    <div class="blog-item">
+                        <div class="bi-pic">
+     
+
+                    <img src="/uploads/{{ article.getImageArticle()}}" alt="image_article" width="100" height="100" >
+                      </div>
+                        
+                        <div class="bi-text">
+                            <h5><a href="{{ path('app_articles_show_front', {'id': article.id}) }}">{{ article.titreArticle }}</a></h5>
+                                <ul>
+                                <li>by {{ article.auteurArticle }} </li>
+                                <li>{{article.getDateA()|date('d-M-y ')}}</li>
+                                <li>{{ article.commentaires | length }} Comment</li>
+                            </ul>
+ 
+                            <li class="icon-right-open "><a href="{{ path('app_articles_show_front', {'id': article.id}) }}"> En savoir plus</a></li>
+  
+                    </div>
+                    </div>
+                    
+                        
+<style>
+
+
+.icon-right-open:before {
+                                 font-family:'FontAwesome';
+
+    content: ">";
+}
+</style>
+                       {% endfor %}
+                    
+             
+                    <div class="blog-pagination">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">Next</a>
+                    </div>
+                </div>
+                 <div class="col-lg-4 col-md-8 p-0">
+                    <div class="sidebar-option">
+                        <div class="so-categories">
+                            <h5 class="title">Categories</h5>
+                            <ul>
+                            <li><a href="#"> {% for categorie_a in categorie_as %}
+       
+                                                 <div> {{ categorie_a.typeA }}</div>
+                                               <span>12</span>{% endfor %}</a></li> 
+                               
+                            </ul>
+                        </div>
+
+                           
+                        <div class="so-latest">
+                            <h5 class="title">Comments</h5>
+                         
+                               
+                               
+               {% for commentaire in commentaires %}
+               
+               <div class="ll-text">
+                
+                                    <div class="co-item">
+                                        <div class="co-widget">
+                                            <a href="#"><i class="fa fa-heart-o"></i></a>
+                                            <a href="#"><i class="fa fa-share-square-o"></i></a>
+                                        </div>
+                                    <div class="co-pic">
+                                            <img src="{{asset('font/img/blog/details/comment-1.jpg')}}" alt="">
+                                              <div class="co-text">
+                                                <p> {{commentaire.getNomC() }} a dit :{{ commentaire.contenuC }} sur l'article : {{ commentaire.getIdArticle().getTitreArticle()}} </p>
+                                                
+                                             {{commentaire.getDateCom()|date('y-M-d H:i:s')}}
+                                        </div>
+                                   
+                                    
+           
+         </div>
+                                  <a href="{{ path('app_commentaires_edit', {'id': commentaire.id}) }}">edit</a>
+
+               
+        
+       
+          
+        {% endfor %}
+                                  </div>
+                                  </div>
+                                  </div>
+                                  </div>
+ 
+                            <a href="{{ path('app_commentaires_new') }}">Commenter</a>
+                             
+                    </div>
+                      
+                </div>
+            </div>
+          
+        </div>
+       
+    </section>
+    <!-- Blog Section End -->
+    
+ {% endblock %}

@@ -1,0 +1,108 @@
+
+{% extends 'detail_blog.html.twig' %}
+
+{% block title %}details{% endblock %}
+
+{% block body %}
+    <!-- Blog Details Hero Section Begin -->
+    <section class="blog-details-hero set-bg" data-setbg="{{asset('font/img/about-us.jpg')}}">
+      <div class="w3-container w3-center w3-animate-zoom"> 
+            <div class="row">
+                <div class="col-lg-8 p-0 m-auto">
+                    <div class="bh-text">
+                        <h3>{{ article.titreArticle }}</h3>
+                        <ul>
+                            <li>{{ article.auteurArticle }}</li>
+                            <li>{{article.getDateA()|date('d-M-y H:i:s')}}</li>
+                            <li>{{ article.commentaires | length }} comments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Blog Details Section Begin -->
+    <section class="blog-details-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 p-0 m-auto">
+                    <div class="blog-details-text">
+                        <div class="blog-details-title">
+                            <p>{{ article.titreArticle }}</p>
+                            <p>{{ article.contenuArticle }}</p>
+                            <h5>{{ article.titreArticle }}</h5>
+                            <p>{{ article.contenuArticle }}</p>
+                        </div>
+                        <div class="blog-details-pic">
+                            <div class="blog-details-pic-item">
+ <center>
+<style>
+          
+* {
+  box-sizing: border-box;
+}
+
+.zoom {
+  padding: 100px;
+  transition: transform .2s;
+  width: 500px;
+  height: 500px;
+  margin: 2 auto;
+}
+
+.zoom:hover {
+  -ms-transform: scale(2); /* IE 9 */
+  -webkit-transform: scale(2); /* Safari 3-8 */
+  transform: scale(2); 
+}
+</style>
+<div class="zoom">
+ <a href="/uploads/{{article.getImageArticle()}}" target="_blank"><img src="/uploads/{{article.getImageArticle()}}" alt="image_article">
+</div>
+
+</center>
+                            </div>
+                            
+                        </div>
+                        <div class="blog-details-desc">
+                            <p>{{ article.contenuArticle }}</p>
+                        </div>
+                        <div class="blog-details-quote">
+                            <div class="quote-icon">
+                                <img src="{{asset('font/img/blog/details/quote-left.png')}}" alt="">
+                            </div>
+                            <h5>{{ article.titreArticle }}</h5>
+                            <span>{{ article.auteurArticle }}</span>
+                        </div>
+                       
+                        <div class="blog-details-tag-share">
+                            <div class="tags">
+                            {{article.getIdCategA().getTypeA}}
+                              
+                            </div>
+                           
+                            <div class="ba-text">
+                                <h5></h5>
+                                <p></a></p>
+                                <div class="bp-social">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                       
+                      <div class="leave-comment">
+    
+                           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  
+
+{% endblock %}

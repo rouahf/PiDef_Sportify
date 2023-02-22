@@ -3,9 +3,10 @@
 {% block title %}Event index{% endblock %}
 
 {% block body %}
-    <h1>Event index</h1>
+    <h1>Events</h1>
+<div class="container">
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -20,6 +21,7 @@
                 <td>{{ event.id }}</td>
                 <td>{{ event.nom }}</td>
                 <td>{{ event.type }}</td>
+
                 <td>
                     <a href="{{ path('app_event_show', {'id': event.id}) }}">show</a>
                     <a href="{{ path('app_event_edit', {'id': event.id}) }}">edit</a>
@@ -32,6 +34,8 @@
         {% endfor %}
         </tbody>
     </table>
+    <button type="button" class="btn btn-info">  <a  href="{{ path('app_event_new') }}">Create</a></button>
+</div>
 
-    <a href="{{ path('app_event_new') }}">Create new</a>
+
 {% endblock %}

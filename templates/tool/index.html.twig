@@ -3,14 +3,15 @@
 {% block title %}Tool index{% endblock %}
 
 {% block body %}
-    <h1>Tool index</h1>
-
-    <table class="table">
+    <h1>Tools</h1>
+<div class="container">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Returned</th>
+                <th>Event</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ tool.id }}</td>
                 <td>{{ tool.name }}</td>
                 <td>{{ tool.returned ? 'Yes' : 'No' }}</td>
+                <td>{{ tool.evenement.nom }}</td>
                 <td>
                     <a href="{{ path('app_tool_show', {'id': tool.id}) }}">show</a>
                     <a href="{{ path('app_tool_edit', {'id': tool.id}) }}">edit</a>
@@ -33,5 +35,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tool_new') }}">Create new</a>
+    <button type="button" class="btn btn-info"> <a href="{{ path('app_tool_new') }}">Create new</a> </button>
+</div>
 {% endblock %}

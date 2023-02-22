@@ -21,6 +21,14 @@ class EventController extends AbstractController
         ]);
     }
 
+    #[Route('/front', name: 'app_show', methods: ['GET'])]
+    public function showf(EventRepository $eventRepository): Response
+    {
+        return $this->render('event/showF.html.twig', [
+            'events' => $eventRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_event_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EventRepository $eventRepository): Response
     {

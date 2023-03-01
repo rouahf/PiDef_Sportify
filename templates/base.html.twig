@@ -90,12 +90,12 @@
                     <span>commandes</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="{{asset('cours.html')}}">
+                <a class="nav-link" href="{{path('app_cours_index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>cours</span></a>
             </li>
              <li class="nav-item active">
-                <a class="nav-link" href="{{asset('cours.html')}}">
+                <a class="nav-link" href="{{path('app_planning_index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>planning</span></a>
             </li>
@@ -160,7 +160,7 @@
 
               <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
               {% block javascripts %}
-          
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
              <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
        <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>

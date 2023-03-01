@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\PlanningRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: PlanningRepository::class)]
 class Planning
@@ -15,10 +17,12 @@ class Planning
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:"NotBlank")]
     private $date_cours = null;
 
     #[ORM\ManyToOne(inversedBy: 'plannings')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message:"NotBlank")]
     private ?Cours $cours = null;
 
     public function getId(): ?int

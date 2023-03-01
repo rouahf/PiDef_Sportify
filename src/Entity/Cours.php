@@ -11,10 +11,15 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 /**
  * @ORM\Entity
  * @Vich\Uploadable
+ * 
  */
 
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
@@ -25,29 +30,29 @@ class Cours
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message:"NotBlank")]
-    #[Assert\Type(type: ['alpha'],message:"The field '{{ value }}' is not valid")]
+    #[ORM\Column(length: 255)]
+    #[Groups(['cours'])]
+    #[Assert\NotBlank (message: "nom requis") ]
+  
     private ?string $nom_cours = null;
 
     #[ORM\Column(length: 200)]
-    #[Assert\NotBlank(message:"NotBlank")]
-    #[Assert\Type(type: ['alpha'],message:"The field '{{ value }}' is not valid")]
+    #[Groups(['cours'])]
+    #[Assert\NotBlank (message: "activite NotBlank") ]
+
+
     private ?string $activite = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank(message:"NotBlank")]
-    #[Assert\Type(type: ['alpha'],message:"The field '{{ value }}' is not valid")]
+    #[Groups(['cours'])]
     private ?\DateTimeInterface $date_cours = null;
 
-    
+    #[Groups(['cours'])]
     #[ORM\Column(length: 255)]
-    private ?string $image;
-    /**
-    * 
-    * @var File|null
-    */
-   private $imageFile;
+    private ?string $image = null;
+    
+   
 
 
     
@@ -71,7 +76,7 @@ class Cours
         return $this->nom_cours;
     }
 
-    public function setNomCours(string $nom_cours): self
+    public function setNomCours($nom_cours): self
     {
         $this->nom_cours = $nom_cours;
 
@@ -83,7 +88,7 @@ class Cours
         return $this->activite;
     }
 
-    public function setActivite(string $activite): self
+    public function setActivite($activite): self
     {
         $this->activite = $activite;
 
@@ -91,7 +96,11 @@ class Cours
     }
     
    
-
+    public static function getTotalNumberOfCourses(EntityManagerInterface $entityManager)
+    {
+        $query = $entityManager->createQuery('SELECT COUNT(c) FROM App\Entity\Cours c');
+        return $query->getSingleScalarResult();
+    }
 
     public function getDateCours(): ?\DateTimeInterface
     {
@@ -105,17 +114,17 @@ class Cours
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
+        public function getImage(): ?string
+        {
+            return $this->image;
+        }
 
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
+            public function setImage($image): self
+            {
+                $this->image = $image;
 
-        return $this;
-    }
+                return $this;
+            }
 
 
  

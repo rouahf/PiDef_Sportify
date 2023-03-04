@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reclamation</title>
+    <style>
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            color: rgb(26, 150, 126);
+        }
+        table {
+            background-color: white;
+            border: 2px solid rgb(26, 150, 126);
+            border-collapse: collapse;
+            width: 70%;
+            margin: 0 auto;
+            background-color: rgba(0, 34, 255, 0.03);
+            border-collapse: collapse;
+            font-size: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid rgb(26, 150, 126);
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+<h1 class="align-center">Bienvenue dans votre application  </h1>
+
+<p>Voila la liste de tout les articles</p>
+<table class="table" border="5" >
+    <tbody>
+            {% for article in articles %}
+            <tr>
+                <th>Titre de l'Article</th>
+                <td>{{ article.titreArticle }}</td>
+            </tr>
+             
+            
+            <tr>
+                <th>Contenu de l'Article</th>
+                <td>{{ article.contenuArticle }}</td>
+            </tr>
+            <tr>
+                <th>Auteur de l'Article</th>
+                <td>{{ article.auteurArticle }}</td>
+            </tr>
+              <tr>
+                <th>date de l'Article</th>
+            
+             <td>{{article.getDateA()|date('d-M-y H:i:s')}}</td>
+                </tr>
+                <tr>
+                <th>categorie</th>
+            
+             <td>{{article.getIdCategA().getTypeA }}</td>
+                </tr>
+        
+                <tr>
+                <th>Commentaires</th>
+           
+                   <td>{{ article.commentaires | length }} comments</td>
+
+           </tr>
+          <tr>
+                <th>Likes</th>
+           
+                   <td>{{ article.likes | length }} comments</td>
+
+           </tr>
+          
+           <td>image</td>
+
+ <a href="/uploads/{{article.getImageArticle()}}" target="_blank"><img src="/uploads/{{article.getImageArticle()}}" alt="image_article" width="100" height="100" >
+  
+        </tbody>
+
+
+    
+
+
+</table>
+ {% endfor %}

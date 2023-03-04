@@ -231,35 +231,37 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     
   
-<div class="mt-5 mb-6 ">
-           <thead>
+<div class="mt-5 mb-6">
+ <table class="table">
+        <thead>
             <tr>
                 <th>Contenu_C</th>
-                <th>titre article</th>
-                <th>actions</th>
+                <th>Titre de l'article</th>
+                <th>Actions</th>
+            
             </tr>
         </thead>
         <tbody>
-        {% for commentaire in commentaires %}
-            <tr>
-                <td>{{ commentaire.contenuC }}</td>
-                <td>{{ commentaire.getIdArticle().getTitreArticle()}}</td>
-              
-               
-                <td>
-                    <a href="{{ path('app_commentaires_show', {'id': commentaire.id}) }}">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for commentaire in commentaires %}
+                <tr>
+                    <td>{{ commentaire.contenuC }}</td>
+                    <td>{{ commentaire.getIdArticle().getTitreArticle() }}</td>
+                    <td>
+                        <td><a href="{{ path('app_commentaires_show', {'id': commentaire.id}) }}">Afficher</a>
+                    </td>
+                   <td>
+                        {% if not commentaire.approved %}
+                            <a href="{{ path('comment_approve', {'id': commentaire.id}) }}">Approuver</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun commentaire trouvé.</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
- </div>
 </div>
-</div>
-     <div class="col-lg-6"><a href="{{ path('app_commentaires_new') }}">Create new</a></div>
-    </div>
+ 
 {% endblock %}

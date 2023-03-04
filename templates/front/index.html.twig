@@ -24,6 +24,17 @@
     <section class="blog-section spad">
         <div class="container">
             <div class="row">
+            {% for message in app.flashes('mercuryseries_flashy_notification') %}
+    <script id="flashy-template" type="text/template">
+        <div class="flashy flashy--{{ message.type }}">
+            <a class="flashy__body" href="#" target="_blank"></a>
+        </div>
+    </script>
+
+    <script>
+        flashy("{{ message.message }}", "{{ message.link }}");
+    </script>
+{% endfor %}
                 <div class="col-lg-8 p-0">
                 {% for article in articles %}
                     <div class="blog-item">
@@ -42,10 +53,24 @@
                             </ul>
  
                             <li class="icon-right-open "><a href="{{ path('app_articles_show_front', {'id': article.id}) }}"> En savoir plus</a></li>
-  
-                    </div>
+   <div class="co-item">
+                        <div class="co-widget">
+                      
+			
+                                           <span class="js-likes"> <a href="{{ path('post_like' , {'id': article.id}) }}"><i class="fa fa-thumbs-up"></i></a> 
+                                       <span class="js-label">J'aime</span>  <span class="js-likes">{{ article.likes | length }} </span>
+                                       
+                       
+                            <a href="{{ path('post_like',{'id':article.id })}}" class="btn btn-link js-like "></a>
+                          
+
+                                  </diV>
+                                  </div>
                     </div>
                     
+                    
+                    </div>
+                     
                         
 <style>
 
@@ -59,20 +84,17 @@
                        {% endfor %}
                     
              
-                    <div class="blog-pagination">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">Next</a>
-                    </div>
+                   
                 </div>
                  <div class="col-lg-4 col-md-8 p-0">
                     <div class="sidebar-option">
                         <div class="so-categories">
                             <h5 class="title">Categories</h5>
+
                             <ul>
                             <li><a href="#"> {% for categorie_a in categorie_as %}
-       
+                                      
+
                                                  <div> {{ categorie_a.typeA }}</div>
                                                <span>12</span>{% endfor %}</a></li> 
                                
@@ -82,50 +104,60 @@
                            
                         <div class="so-latest">
                             <h5 class="title">Comments</h5>
-                         
-                               
-                               
-               {% for commentaire in commentaires %}
-               
-               <div class="ll-text">
-                
-                                    <div class="co-item">
-                                        <div class="co-widget">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                            <a href="#"><i class="fa fa-share-square-o"></i></a>
-                                        </div>
-                                    <div class="co-pic">
-                                            <img src="{{asset('font/img/blog/details/comment-1.jpg')}}" alt="">
-                                              <div class="co-text">
-                                                <p> {{commentaire.getNomC() }} a dit :{{ commentaire.contenuC }} sur l'article : {{ commentaire.getIdArticle().getTitreArticle()}} </p>
-                                                
-                                             {{commentaire.getDateCom()|date('y-M-d H:i:s')}}
-                                        </div>
+               <div class="ll-text">               
+    <div class="comment">
+     {% block content %}
+ 
+
+  {% if commentaires|length > 0 %}
+    {% for commentaire in commentaires %}
+   
+      {% if commentaire.approved %}
+        <div class="comment">
+         <div class="co-pic">
+     <img src="{{asset('font/img/blog/details/comment-1.jpg')}}" alt="">
+       <div class="co-text">
+       <div class="co-item">
+      <div class="co-widget">
+     <a href="#"><i class="fa fa-heart-o"></i></a>
+      <a href="{{ path('app_commentaires_new')}}"><i class="fa fa-share-square-o"></i></a>
+        </div>
+
+          <p>{{ commentaire.getIdArticle().getTitreArticle() }}<p>
+          
+          <p>{{ commentaire.contenuC }}</p>
+          <p>{{ commentaire.getDateCom()|date('y-M-d H:i:s') }}</p>
+          <span class="badge badge-success">Approuvé</span>
+            <a href="{{ path('app_commentaires_edit', {'id': commentaire.id}) }}">edit</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <p>Aucun commentaire approuvé trouvé.</p>
+  {% endif %}
+
+{% endblock %}                     </div>
                                    
                                     
            
          </div>
-                                  <a href="{{ path('app_commentaires_edit', {'id': commentaire.id}) }}">edit</a>
-
-               
-        
-       
+                                
           
-        {% endfor %}
+    
                                   </div>
                                   </div>
-                                  </div>
-                                  </div>
+                            
  
                             <a href="{{ path('app_commentaires_new') }}">Commenter</a>
+                           
                              
                     </div>
-                      
+                         <div class="blog-pagination"><a{{ knp_pagination_render(articles) }}></a></div>
                 </div>
             </div>
           
         </div>
-       
+ 
     </section>
     <!-- Blog Section End -->
     

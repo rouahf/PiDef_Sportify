@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 use App\Entity\Commentaires;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 class Articles
@@ -42,17 +43,29 @@ class Articles
     #[ORM\OneToMany(mappedBy: 'id_article', targetEntity: Commentaires::class)]
     private Collection $commentaires;
 
+    #[ORM\OneToMany(mappedBy: 'likes', targetEntity: PostLike::class)]
+    private Collection $likes;
+
+   
+
+   
+    
+   
+
+
    
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->id_com = new ArrayCollection();
-    }
+        //$this->state = Articles::STATES[0];
+        $this->likes = new ArrayCollection();
+        $this->images = new ArrayCollection();
 
    
   
   
-
+    }
    
 
   
@@ -110,7 +123,45 @@ class Articles
 
         return $this;
     }
+  
+   
 
+   
+    public function addLike(PostLike $like): self {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPost($this);
+        }
+
+        return $this;
+    }
+    /**
+     * @param \App\Entity\Utilisateur $Client
+     * @return bool
+     */
+    public function isLikeByUser(Utilisateur $Client):bool{
+        foreach ($this->likes as $Like){
+            if ($Like->getClient() === $Client)return true;
+        }
+        return false;
+    }
+
+
+    public function removeLike(PostLike $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getPost() === $this) {
+                $like->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function nblike(){
+        return $this->likes->count();
+    }
    
 
 
@@ -168,8 +219,34 @@ class Articles
         return $this;
     }
 
+	
+
+	/**
+	 * 
+	 * @return mixed
+	 */
+	public function getLikes() {
+                  		return $this->likes;
+                  	}
+	
+	/**
+	 * 
+	 * @param mixed $likes 
+	 * @return self
+	 */
+	public function setLikes($likes): self {
+                  		$this->likes = $likes;
+                  		return $this;
+                  	}
+
+}
+
+   
+
+   
+
     
    
     
     
-}
+

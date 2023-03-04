@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Number of comments per article</h1>
+    <h1>Statistics for "{{ article.titreArticle }}"</h1>
+    <div id="pie-chart"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/apexcharts@3.27.3/dist/apexcharts.min.js')}}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var chartData = {{ chartData|raw }};
+            var chartOptions = {
+                chart: { 
+                    type: 'pie',
+                    height: 400
+                },
+                series: Object.values(chartData),
+                labels: Object.keys(chartData)
+            };
+            var chart = new ApexCharts(document.querySelector('#pie-chart'), chartOptions);
+            chart.render();
+        });
+    </script>
+{% endblock %}

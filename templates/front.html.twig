@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="{{asset('font/css/magnific-popup.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('font/css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('font/css/style.css')}}" type="text/css">
+     <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
      {% endblock %}
      </head>
   
@@ -259,10 +263,15 @@
     <script src="{{asset('font/./js/jquery.slicknav.js')}}"></script>
     <script src="{{asset('font/./js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('font/./js/main.js')}}"></script>
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+     <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Load Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
 
     {% endblock %}
 
-
+ {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 </body>
 
 </html>

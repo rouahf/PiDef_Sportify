@@ -45,7 +45,7 @@ class CategorieARepository extends ServiceEntityRepository
    *   * @param [typeA] $value
     * 
      */
-    public function findByTypeA($value): array
+    /*public function findByTypeA($value): array
    {
        return $this->createQueryBuilder('c')
             ->andWhere('c.typeA= :val')

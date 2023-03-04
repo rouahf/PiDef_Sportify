@@ -36,6 +36,9 @@ class Commentaires
     #[Assert\Email(message:"the email '{{ value }}' is not a valid email")]
     private ?string $email_c = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $approved = null;
+
 
    
 
@@ -106,6 +109,18 @@ class Commentaires
     public function setEmailC(string $email_c): self
     {
         $this->email_c = $email_c;
+
+        return $this;
+    }
+
+    public function isApproved(): ?bool
+    {
+        return $this->approved;
+    }
+
+    public function setApproved(?bool $approved): self
+    {
+        $this->approved = $approved;
 
         return $this;
     }

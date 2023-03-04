@@ -3,8 +3,14 @@
 namespace App\Repository;
 
 use App\Entity\Articles;
+use App\Entity\CategorieA;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
+
 
 /**
  * @extends ServiceEntityRepository<Articles>
@@ -19,6 +25,8 @@ class ArticlesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Articles::class);
+        
+       
     }
 
     public function save(Articles $entity, bool $flush = false): void
@@ -38,6 +46,23 @@ class ArticlesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+/**
+    * @return Articles[] Returns an array of Product objects
+   */
+  public function findWithSearch($search)
+  {
+      $query = $this->createQueryBuilder('p');
+         //dd($query->getQuery()); visualise la requete
+        
+         
+       if($search->getCategories()){
+          $query = $query->join('p.id_categA', 'c')
+                         ->andWhere('c.id IN (:categories)')
+                         ->setParameter('categories',$search->getCategories());
+         }
+      ;
+  }
+
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
@@ -63,4 +88,6 @@ class ArticlesRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+	
 }

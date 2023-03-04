@@ -38,7 +38,14 @@ class CommentairesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function findUnapprovedComments()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.approved = :approved')
+            ->setParameter('approved', false)
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Commentaires[] Returns an array of Commentaires objects
 //     */

@@ -5,6 +5,7 @@ use App\Entity\Commentaires;
 use App\Form\CommentairesType;
 use App\Repository\ArticlesRepository;
 use App\Repository\CommentairesRepository;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,10 @@ class CommentairesController extends AbstractController
     }
 
 
-   
+    public function __construct(FlashyNotifier $flashy)
+    {
+        $this->flashy = $flashy;
+    }
 
     #[Route('/new', name: 'app_commentaires_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CommentairesRepository $commentairesRepository): Response
@@ -36,11 +40,15 @@ class CommentairesController extends AbstractController
             $commentairesRepository->save($commentaire, true);
 
             return $this->redirectToRoute('app_articles_index_front', [], Response::HTTP_SEE_OTHER);
+
         }
+        $successMessage = $this->flashy->success('ajouter un article!', 'http://your-awesome-link.com');
 
         return $this->renderForm('commentaires/new.html.twig', [
             'commentaire' => $commentaire,
             'form' => $form,
+            '_flash_messages' => $successMessage
+
         ]);
     }
 
@@ -79,6 +87,26 @@ class CommentairesController extends AbstractController
 
         return $this->redirectToRoute('app_articles_index_front', [], Response::HTTP_SEE_OTHER);
     }
-  
-  
+
+    /**
+     * @Route("/{id}/approve", name="comment_approve")
+     */
+    public function approveComment($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $comment = $entityManager->getRepository(Commentaires::class)->find($id);
+    
+        if (!$comment) {
+            throw $this->createNotFoundException('No comment found for id '.$id);
+        }
+    
+        $comment->setApproved(true);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_commentaires_index');
+    }
+   
 }
+
+
+

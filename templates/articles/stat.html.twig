@@ -1,0 +1,36 @@
+
+<h1>% Plannifications par Salle</h1>
+    <div class="card">
+    <div class="card-body">
+
+    <!-- Pie Chart -->
+    <div id="pieChart"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            new ApexCharts(document.querySelector("#pieChart"), {
+                series: [
+                    {{ nbPlannificationsSalle0 }},
+                    {{ nbPlannificationsSalle1 }},
+                    {{ nbPlannificationsSalle2 }},
+                    {{ nbPlannificationsSalle3 }},
+                    {{ nbPlannificationsSalle4 }},
+                    {{ nbPlannificationsSalle5 }},
+                    {{ nbPlannificationsSalle6 }},
+                    {{ nbPlannificationsSalle7 }},
+                    {{ nbPlannificationsSalle8 }},
+                    {{ nbPlannificationsSalle9 }}
+                ],
+                chart: {
+                    height: 350,
+                    type: 'pie',
+                    toolbar: {
+                        show: true
+                    }
+                },
+                labels: ['Salle 0', 'Salle 1', 'Salle 2', 'Salle 3', 'Salle 4', 'Salle 5', 'Salle 6', 'Salle 7', 'Salle 8', 'Salle 9']
+            }).render();
+        });
+    </script>
+    <!-- End Pie Chart -->
+    </div>
+    </div>

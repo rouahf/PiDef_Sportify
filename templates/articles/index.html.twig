@@ -258,9 +258,10 @@
                
                 <td>{{ article.titreArticle }}</td>
                
-                <td>{{ article.auteurArticle }}</td>                  
-                <td>{{ article.getIdCategA().getTypeA() }}</td>
-             
+                <td>{{ article.auteurArticle }}</td>   
+                <td> 
+                 {{article.getIdCategA().getTypeA}}  
+                 </td>            
                   <td>
                   <img src="/uploads/{{ article.getImageArticle()}}" alt="image_article" width="100" height="100" >
                   </td>
@@ -270,19 +271,26 @@
                 <div>
                     <a href="{{ path('app_articles_show', {'id': article.id}) }}">show</a>
                     <a href="{{ path('app_articles_edit', {'id': article.id}) }}">edit</a>
-                    </div>
+                    <a href="{{ path('app_generate_pdf', {'id': article.id}) }}">pdf</a>
+                    </div>     
 
                 </td>
             </tr>
+            
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
+       
         </tbody>
     </table>
+
  </div>
- </div></div>
+ </div>
+ <div>
+<a class="pagination" href="{{ knp_pagination_render(articles) }}"></a>
+ </div>
     <a href="{{ path('app_articles_new') }}">Create new</a>
-    
+   
 {% endblock %}

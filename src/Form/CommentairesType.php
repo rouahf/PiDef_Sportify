@@ -17,14 +17,14 @@ class CommentairesType extends AbstractType
             ->add('nom_c')
             ->add('email_C')
             ->add('contenu_C')
-             ->add('id_article', EntityType::class, [
+            /* ->add('id_article', EntityType::class, [
                 'class'=>Articles::class,
                  'choice_label'=>'titre_article',
                 'multiple'=>false,
                  'expanded'=>false
              ])
            
-         
+         */
         ;
     }
 

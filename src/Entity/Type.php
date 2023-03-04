@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\TypeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TypeRepository;
+use Doctrine\Common\Collections\Collection;
+
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TypeRepository::class)]
 #[Assert\NotBlank(message:"NotBlank")]
@@ -17,12 +20,17 @@ class Type
     #[Assert\NotBlank(message:"NotBlank")]
     #[ORM\Column]
     #[Assert\NotBlank(message:"NotBlank")]
+        /**
+     * @Groups("priorite")
+     */
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
     #[Assert\NotBlank(message:"NotBlank")]
     
-    
+        /**
+     * @Groups("priorite")
+     */
     private ?string $nom_type = null;
 
     #[ORM\OneToMany(mappedBy: 'id_type', targetEntity: Priorite::class)]

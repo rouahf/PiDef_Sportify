@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\PrioriteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PrioriteRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PrioriteRepository::class)]
 #[Assert\NotBlank(message:"NotBlank")]
@@ -15,7 +16,12 @@ class Priorite
     #[Assert\NotBlank(message:"NotBlank")]
     #[ORM\Column]
     #[Assert\NotBlank(message:"NotBlank")]
+
+    /**
+     * @Groups("prioritee")
+     */
     private ?int $id = null;
+    
 
     #[ORM\Column(length: 30)]
     #[Assert\NotBlank(message:"NotBlank")]
@@ -23,6 +29,10 @@ class Priorite
 
     #[ORM\ManyToOne(inversedBy: 'priorites')]
     #[Assert\NotBlank(message:"NotBlank")]
+
+        /**
+     * @Groups("priorite")
+     */
     private ?Type $id_type = null;
 
     public function getId(): ?int

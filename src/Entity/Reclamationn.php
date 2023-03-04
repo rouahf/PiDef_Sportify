@@ -49,7 +49,7 @@ class Reclamationn
         return $this->idUser;
     }
 
-    public function setIdUser(int $idUser): self
+    public function setIdUser($idUser): self
     {
         $this->idUser = $idUser;
 
@@ -61,7 +61,7 @@ class Reclamationn
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail( $email): self
     {
         $this->email = $email;
 
@@ -73,7 +73,7 @@ class Reclamationn
         return $this->categorie;
     }
 
-    public function setCategorie(string $categorie): self
+    public function setCategorie($categorie): self
     {
         $this->categorie = $categorie;
 
@@ -85,7 +85,7 @@ class Reclamationn
         return $this->etat_reclamation;
     }
 
-    public function setEtatReclamation(string $etat_reclamation): self
+    public function setEtatReclamation($etat_reclamation): self
     {
         $this->etat_reclamation = $etat_reclamation;
 
@@ -97,7 +97,7 @@ class Reclamationn
         return $this->priorite;
     }
 
-    public function setPriorite(string $priorite): self
+    public function setPriorite($priorite): self
     {
         $this->priorite = $priorite;
 

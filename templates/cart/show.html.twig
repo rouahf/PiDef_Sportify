@@ -1,0 +1,70 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block body %}
+    <h1>Cart</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cart.id }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ cart.reference }}</td>
+            </tr>
+            <tr>
+                <th>Fullname</th>
+                <td>{{ cart.fullname }}</td>
+            </tr>
+            <tr>
+                <th>TransportName</th>
+                <td>{{ cart.transportName }}</td>
+            </tr>
+            <tr>
+                <th>TransportPrice</th>
+                <td>{{ cart.transportPrice }}</td>
+            </tr>
+            <tr>
+                <th>LivraisonAdresse</th>
+                <td>{{ cart.livraisonAdresse }}</td>
+            </tr>
+            <tr>
+                <th>IsPaid</th>
+                <td>{{ cart.isPaid ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>MoreInformations</th>
+                <td>{{ cart.moreInformations }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ cart.quantity }}</td>
+            </tr>
+            <tr>
+                <th>SubTotalHT</th>
+                <td>{{ cart.subTotalHT }}</td>
+            </tr>
+            <tr>
+                <th>Taxe</th>
+                <td>{{ cart.taxe }}</td>
+            </tr>
+            <tr>
+                <th>SubTotalTTC</th>
+                <td>{{ cart.subTotalTTC }}</td>
+            </tr>
+             <tr>
+                <th>email</th>
+                <td>{{ cart.getUser().getEmail()}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_cart_index') }}">back to list</a>
+
+    <a href="{{ path('app_cart_edit', {'id': cart.id}) }}">edit</a>
+
+    {{ include('cart/_delete_form.html.twig') }}
+{% endblock %}

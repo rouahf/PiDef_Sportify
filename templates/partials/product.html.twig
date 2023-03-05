@@ -1,0 +1,36 @@
+<div class="col-lg-3 col-md-4 col-6">
+    <div class="product" style="background-color:Black;">
+        <div class="product_img">
+            <a href="">
+                <img height="300"src="/uploads/{{ product.image }}" alt="product_image">
+            </a>
+            <div class="product_action_box">
+                <ul class="list_none pr_action_btn">
+                 <li class="add-to-cart"  style="color:orange;"><a href="{{ path('cartAdd', {'id':product.id})}}"><i class="icon-basket-loaded" style="color:orange;"></i> Ajouter au panier</a></li>
+                    <li><a href="{{ path('product_details', {'slug': product.slug})}}" class=""style="color:orange;"><i class="icon-magnifier-add"style="color:orange;"></i></a></li>
+                    <li><a href="" style="color:orange;"><i class="icon-heart" style="color:orange;"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="product_info">
+            <h6 class="product_title"  style="color:white;"><a>{{product.nameProduct}}</a></h6>
+            <div class="product_price" style="color:orange;">
+                <span class="price" style="color:orange;">€{{product.price/100}}</span>
+                <del>€{{(product.price*1.10/100) | round(2, 'floor')}}</del>
+               
+            </div>
+            <div class="rating_wrap">
+                <div class="rating">
+                    <div class="product_rate" style="width:80%"></div>
+                </div>
+                
+                <span class="rating_num">({{ product.reviewsProducts | length }})</span>
+            </div>
+            <div class="pr_desc">
+                <p>{{product.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

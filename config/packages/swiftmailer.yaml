@@ -1,0 +1,12 @@
+# config/packages/swiftmailer.yaml
+swiftmailer:
+    transport: smtp
+    host: smtp.gmail.com
+    username: maher.karoui@esprit.com
+    password: 201JMT4217
+    port: 587
+    encryption: tls
+    auth_mode: login
+    spool:
+        type: file
+        path: '%kernel.cache_dir%/swiftmailer/spool'

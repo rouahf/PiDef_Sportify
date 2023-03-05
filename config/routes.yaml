@@ -1,3 +1,7 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+planning_pdf:
+    path: '/planning/{id}/pdf'
+    controller: App\Controller\PlanningController::generatePdf
+    methods: ['GET']

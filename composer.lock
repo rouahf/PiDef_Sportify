@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "465d37a0c7e32c3451810504f97e169b",
+=======
+    "content-hash": "a7cc44bdb0e7d412b287455050341947",
+>>>>>>> bb4b5810e0571a8461c5ef9cc615a24bc2425ef2
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1967,6 +1971,7 @@
             "time": "2022-08-28T14:42:14+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "knplabs/knp-snappy",
             "version": "v1.4.1",
             "source": {
@@ -2105,6 +2110,8 @@
             "time": "2022-01-05T15:50:51+00:00"
         },
         {
+=======
+>>>>>>> bb4b5810e0571a8461c5ef9cc615a24bc2425ef2
             "name": "laminas/laminas-code",
             "version": "4.7.1",
             "source": {

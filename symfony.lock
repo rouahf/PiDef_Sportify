@@ -41,6 +41,7 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
+<<<<<<< HEAD
     "knplabs/knp-snappy-bundle": {
         "version": "1.9",
         "recipe": {
@@ -53,6 +54,8 @@
             "./config/packages/knp_snappy.yaml"
         ]
     },
+=======
+>>>>>>> bb4b5810e0571a8461c5ef9cc615a24bc2425ef2
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {

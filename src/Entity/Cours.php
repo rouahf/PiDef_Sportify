@@ -13,7 +13,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+<<<<<<< HEAD
 use Doctrine\ORM\EntityManagerInterface;
+=======
+>>>>>>> bb4b5810e0571a8461c5ef9cc615a24bc2425ef2
 
 
 /**
@@ -30,7 +33,11 @@ class Cours
     #[ORM\Column]
     private ?int $id = null;
 
+<<<<<<< HEAD
     #[ORM\Column(length: 255)]
+=======
+    #[ORM\Column(length: 50)]
+>>>>>>> bb4b5810e0571a8461c5ef9cc615a24bc2425ef2
     #[Groups(['cours'])]
     #[Assert\NotBlank (message: "nom requis") ]
   
@@ -119,12 +126,21 @@ class Cours
             return $this->image;
         }
 
+<<<<<<< HEAD
             public function setImage($image): self
             {
                 $this->image = $image;
 
                 return $this;
             }
+=======
+        public function setImage($image): self
+        {
+            $this->image = $image;
+
+            return $this;
+        }
+>>>>>>> bb4b5810e0571a8461c5ef9cc615a24bc2425ef2
 
 
  

@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Like;
 use App\Entity\PostLike;
 use App\Entity\SearchData;
 use App\Form\SearchType;
 use App\Entity\Articles;
 use App\Entity\CategorieA;
+use App\Entity\User;
 use App\Entity\Commentaires;
 use App\Form\ArticlesType;
 use App\Form\CategorieAType;
 use App\Form\CommentairesType;
+use App\Repository\LikeRepository;
 use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\ClassMetadata;
@@ -21,6 +24,7 @@ use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\IdReader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -105,22 +109,34 @@ return $this->render('front/show_front.html.twig', [
      * @param \App\Repository\PostLikeRepository $likeRepository
      * @return Response
      */
-    public function like(Articles $post , EntityManagerInterface $manager, PostLikeRepository $likeRepository ):Response
+    public function like(Articles $post , EntityManagerInterface $manager, LikeRepository $likeRepository ):Response
     {
-          $user=$this->getUser();
- 
-       
- 
-          $like= new PostLike();
-         $like->setArticles($post);
-          $manager->persist($like);
-          $manager->flush();
- 
-          return $this->json(['code'=> 200 ,
-              'message'=> 'Like bien ajoutee',
-              'likes'=>$likeRepository->count(['articles'=>$post])
-          ],200);
- 
+        $user=$this->getUser();
+       // if (!$user) return $this->json(['code'=>403,'message'=>"unauthorized"],403);
+      
+        if ($user){
+            $like=$likeRepository->findOneBy(['articles'=>$post , 'User'=>$user]);
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code'=>200,
+                'message'=>'Like bien supprimé',
+                'likes' => $likeRepository->count(['articles'=>$post])
+            ],200);
+        }
+    
+        $like= new Like();
+        $like->setArticles($post)->setUser($user);
+        $manager->persist($like);
+        $manager->flush();
+        return $this->redirectToRoute('app_articles_index_front', [], Response::HTTP_SEE_OTHER);
+    
+        /*return $this->json(['code'=> 200 ,
+            'message'=> 'Like bien ajoutee',
+            'likes'=>$likeRepository->count(['articles'=>$post])
+        ],200);*/
+        
 }
 #[Route('/{id}', name: 'show_coments', methods: ['GET'])]
 
@@ -177,6 +193,38 @@ public function replyToComment(Request $request, Commentaires $comment): Respons
     ]);
 
     }
+ /*   #[Route('/{id}/like', name: 'app_like', methods: ['POST'])]
+
+    public function like(Articles $article, Request $request)
+    {
+        $article->setLikes($article->getLikes() + 1);
+    
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($article);
+        $entityManager->flush();
+    
+        $isArticleLiked = $this->getUser()->getLikes()->contains($article);
+    
+    
+        return new JsonResponse(['likes' => $article->getLikes()]);
+    }
+    
+    #[Route('/{id}/dislike', name: 'app_dislike', methods: ['POST'])]
+
+    public function unlike(Articles $article, Request $request)
+    {
+        $article->setLikes($article->getLikes() - 1);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($article);
+        $entityManager->flush();
+        return $this->render('front/index.html.twig', [
+            'article' => $article
+        
+        ]);
+        return new JsonResponse(['likes' => $article->getLikes()]);
+    }
+    */
 }
 
 

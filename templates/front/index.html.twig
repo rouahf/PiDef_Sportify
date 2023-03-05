@@ -53,11 +53,11 @@
                             </ul>
  
                             <li class="icon-right-open "><a href="{{ path('app_articles_show_front', {'id': article.id}) }}"> En savoir plus</a></li>
-   <div class="co-item">
+               <div class="co-item">
                         <div class="co-widget">
                       
 			
-                                           <span class="js-likes"> <a href="{{ path('post_like' , {'id': article.id}) }}"><i class="fa fa-thumbs-up"></i></a> 
+                                           <span class="js-likes"> <a href="{{ path('post_like' , {'id': article.id}) }}"><i class="fa fa-thumbs-up"></i>
                                        <span class="js-label">J'aime</span>  <span class="js-likes">{{ article.likes | length }} </span>
                                        
                        
@@ -70,22 +70,17 @@
                     
                     
                     </div>
-                     
-                        
+                    
+                            
 <style>
-
-
 .icon-right-open:before {
-                                 font-family:'FontAwesome';
-
+  font-family:'FontAwesome';
     content: ">";
 }
 </style>
-                       {% endfor %}
-                    
-             
-                   
-                </div>
+  {% endfor %}
+</div>
+
                  <div class="col-lg-4 col-md-8 p-0">
                     <div class="sidebar-option">
                         <div class="so-categories">
@@ -103,8 +98,8 @@
 
                            
                         <div class="so-latest">
-                            <h5 class="title">Comments</h5>
-               <div class="ll-text">               
+        <h5 class="title">Comments</h5>
+      <div class="ll-text">               
     <div class="comment">
      {% block content %}
  
@@ -123,10 +118,11 @@
       <a href="{{ path('app_commentaires_new')}}"><i class="fa fa-share-square-o"></i></a>
         </div>
 
-          <p>{{ commentaire.getIdArticle().getTitreArticle() }}<p>
-          
-          <p>{{ commentaire.contenuC }}</p>
-          <p>{{ commentaire.getDateCom()|date('y-M-d H:i:s') }}</p>
+         
+          <p>{{commentaire.nomC}} a dit sur  :
+       {{ commentaire.getIdArticle().getTitreArticle() }} le message :{{ commentaire.contenuC }}</p>
+        
+          <p> le : {{ commentaire.getDateCom()|date('y-M-d H:i:s') }}</p>
           <span class="badge badge-success">Approuvé</span>
             <a href="{{ path('app_commentaires_edit', {'id': commentaire.id}) }}">edit</a>
         </div>
@@ -159,6 +155,6 @@
         </div>
  
     </section>
-    <!-- Blog Section End -->
-    
+  
+
  {% endblock %}

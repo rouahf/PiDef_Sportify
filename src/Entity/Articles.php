@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Entity;
+use App\Entity\Commentaires;
+use App\Entity\Like;
 use App\Repository\ArticlesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
-use App\Entity\Commentaires;
 use MercurySeries\FlashyBundle\FlashyNotifier;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 class Articles
@@ -16,15 +18,19 @@ class Articles
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("article")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("article")]
     private ?string $titre_Article = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("article")]
     private ?string $contenu_Article = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("article")]
     private ?string $auteur_Article = null;
 
    
@@ -35,31 +41,26 @@ class Articles
 
   
     #[ORM\Column(length: 255)]
+    #[Groups("article")]
     private ?string $image_article ;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups("article")]
     private ?\DateTimeInterface $date_A = null;
 
     #[ORM\OneToMany(mappedBy: 'id_article', targetEntity: Commentaires::class)]
     private Collection $commentaires;
 
-    #[ORM\OneToMany(mappedBy: 'likes', targetEntity: PostLike::class)]
+    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: Like::class)]
     private Collection $likes;
 
-   
 
-   
-    
-   
-
-
-   
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->id_com = new ArrayCollection();
         //$this->state = Articles::STATES[0];
-        $this->likes = new ArrayCollection();
+       // $this->likes = new ArrayCollection();
         $this->images = new ArrayCollection();
 
    
@@ -126,38 +127,6 @@ class Articles
   
    
 
-   
-    public function addLike(PostLike $like): self {
-        if (!$this->likes->contains($like)) {
-            $this->likes[] = $like;
-            $like->setPost($this);
-        }
-
-        return $this;
-    }
-    /**
-     * @param \App\Entity\Utilisateur $Client
-     * @return bool
-     */
-    public function isLikeByUser(Utilisateur $Client):bool{
-        foreach ($this->likes as $Like){
-            if ($Like->getClient() === $Client)return true;
-        }
-        return false;
-    }
-
-
-    public function removeLike(PostLike $like): self
-    {
-        if ($this->likes->removeElement($like)) {
-            // set the owning side to null (unless already changed)
-            if ($like->getPost() === $this) {
-                $like->setPost(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function nblike(){
         return $this->likes->count();
@@ -220,25 +189,78 @@ class Articles
     }
 
 	
+     //@return Collection|Like[]
+   
+   /* public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
 
-	/**
-	 * 
-	 * @return mixed
-	 */
-	public function getLikes() {
-                  		return $this->likes;
-                  	}
-	
-	/**
-	 * 
-	 * @param mixed $likes 
-	 * @return self
-	 */
-	public function setLikes($likes): self {
-                  		$this->likes = $likes;
-                  		return $this;
-                  	}
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setArticle($this);
+        }
 
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getArticle() === $this) {
+                $like->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+    
+   
+*/
+
+   /**
+    * @return Collection<int, Like>
+    */
+   public function getLikes(): Collection
+   {
+       return $this->likes;
+   }
+
+   public function addLike(Like $like): self
+   {
+       if (!$this->likes->contains($like)) {
+           $this->likes->add($like);
+           $like->setArticles($this);
+       }
+
+       return $this;
+   }
+
+   public function removeLike(Like $like): self
+   {
+       if ($this->likes->removeElement($like)) {
+           // set the owning side to null (unless already changed)
+           if ($like->getArticles() === $this) {
+               $like->setArticles(null);
+           }
+       }
+
+       return $this;
+   }
+   public function isLikedByUser(User $user): bool
+   {
+       foreach ($this->likes as $like) {
+           if ($like->getUser() === $user) {
+               return true;
+           }
+       }
+
+       return false;
+   }
 }
 
    

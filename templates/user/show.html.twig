@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+<div class="container">
+    <table class="table table-dark table-striped">
+  
+<div class="mt-5 mb-6 ">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ user.prenom }}</td>
+            </tr>
+           
+            <tr>
+                <th>role</th>
+                <td>{{ user.roleuser }}</td>
+                
+                {% if not user.IsBlocked %}
+    <form action="{{ path('app_block_utilisateur', {'id': user.id}) }}" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <button type="submit">Block user</button>
+    </form>
+{% else %}
+    <form action="{{ path('app_unblock_utilisateur', {'id': user.id}) }}" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <button type="submit">Unblock user</button>
+    </form>
+{% endif %}
+            </tr>
+        </tbody>
+    </table>
+    <div class="my-2">
+                                     <a href="{{ path('app_user_index') }}"  class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">back to list</span>
+                                    </a>
+                                    </div>
+    <div class="my-2">
+                                    <a href="{{ path('app_user_edit', {'id': user.id})}}"  class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">edit</span>
+                                    </a>
+</div>
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

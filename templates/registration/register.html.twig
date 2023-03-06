@@ -1,0 +1,67 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+ {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+ <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title contact-title">
+    <h1>Register</h1>
+      </div> 
+                </div>
+                 <div class="col-lg-6">
+                    <div class="leave-comment">
+
+ {{ form_start(registrationForm,{'attr':{'novalidate':'novalidate'}} )}}
+  <div class="form-group">
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Merci de taper votre email'}}) }}
+            {% if form_errors(registrationForm.email)is not empty %}    
+            <div class="alert alert-danger">
+            {{ form_errors(registrationForm.email) }}
+            </div>
+            {% endif %}
+        </div>
+    <div class="form-group">
+            {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control', 'placeholder': 'Merci de taper votre nom'}}) }}
+            {% if form_errors(registrationForm.nom)is not empty %}    
+            <div class="alert alert-danger">
+            {{ form_errors(registrationForm.nom) }}
+            </div>
+            {% endif %}
+        </div>
+     <div class="form-group">
+            {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Merci de taper votre prenom'}}) }}
+            {% if form_errors(registrationForm.prenom)is not empty %}    
+            <div class="alert alert-danger">
+            {{ form_errors(registrationForm.prenom) }}
+            </div>
+            {% endif %}
+        </div>
+        
+
+
+
+
+
+      
+       
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+     </div>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+{% endblock %}

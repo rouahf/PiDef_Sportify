@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RoleUser index{% endblock %}
+
+{% block body %}
+    <h1>RoleUser </h1>
+
+
+
+
+
+
+<div class="container">
+    <table class="table table-dark table-striped">
+
+<div class="mt-5 mb-6 ">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Role</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for roleuser in roleusers %}
+            <tr>
+                <td>{{ roleuser.id }}</td>
+                <td>{{ roleuser.role }}</td>
+                
+                <td>
+                 <div class="my-2"></div>
+                                    <a href="{{ path('app_roleuser_show', {'id': roleuser.id}) }}" class="btn btn-success btn-icon-split">
+                                        
+                                        <span class="text">show</span>
+                                    </a>
+               <div class="my-2"></div>
+                                    <a href="{{ path('app_roleuser_edit', {'id': roleuser.id})}}"  class="btn btn-success btn-icon-split">
+                                      
+                                        <span class="text">edit</span>
+                                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <div class="my-2">
+         <a href="{{ path('app_roleuser_new') }}" class="btn btn-success btn-icon-split">
+                                      
+          <span class="text">Create new</span>
+        </a></div>
+{% endblock %}

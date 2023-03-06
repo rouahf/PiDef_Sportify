@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PLANNING</title>
+    <style>
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            color: rgb(26, 150, 126);
+        }
+        table {
+            background-color: white;
+            border: 2px solid rgb(26, 150, 126);
+            border-collapse: collapse;
+            width: 70%;
+            margin: 0 auto;
+            background-color: rgba(0, 34, 255, 0.03);
+            border-collapse: collapse;
+            font-size: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid rgb(26, 150, 126);
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="table-container">
+    <h1>Liste Des Planning</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+                <th>Id</th>
+                <th>Date_cours</th>
+                <th>Cours</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for planning in plannings %}
+            <tr>
+                <td>{{ planning.id }}</td>
+                
+
+                <td>{{ planning.dateCours ? planning.dateCours|date('Y-m-d') : '' }}</td>
+                <td>{{planning.getCours().getNomCours()}}</td>
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

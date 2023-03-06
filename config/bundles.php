@@ -13,10 +13,5 @@ return [
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
-    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
-    Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
-<<<<<<< HEAD
-    Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
-=======
->>>>>>> bb4b5810e0571a8461c5ef9cc615a24bc2425ef2
+    
 ];

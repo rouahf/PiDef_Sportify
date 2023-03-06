@@ -39,29 +39,6 @@ class CoursRepository extends ServiceEntityRepository
         }
     }
 
-   
-    public function order_By_Nom()
-    {
-        return $this->createQueryBuilder('s')
-            ->orderBy('s.nom_cours', 'ASC')
-            ->getQuery()->getResult();
-    }
-    public function order_By_Date()
-    {
-        return $this->createQueryBuilder('s')
-            ->orderBy('s.date_cours', 'ASC')
-            ->getQuery()->getResult();
-    }
-    public function searchNom($nom_cours)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.nom_cours LIKE :ncl')
-            ->setParameter('ncl', $nom_cours.'%')
-            ->getQuery()
-            ->execute();
-    }
-  
-
 //    /**
 //     * @return Cours[] Returns an array of Cours objects
 //     */

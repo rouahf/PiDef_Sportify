@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 #[Route('/planning')]
 class PlanningController extends AbstractController
@@ -52,7 +50,7 @@ class PlanningController extends AbstractController
    
 
     #[Route('/new', name: 'app_planning_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PlanningRepository $planningRepository , MailerInterface $mailer): Response
+    public function new(Request $request, PlanningRepository $planningRepository): Response
     {
         $planning = new Planning();
         $form = $this->createForm(PlanningType::class, $planning);
@@ -62,29 +60,6 @@ class PlanningController extends AbstractController
             $planningRepository->save($planning, true);
 
             return $this->redirectToRoute('app_planning_index', [], Response::HTTP_SEE_OTHER);
-            
-            
-            
-            $message = (new TemplatedEmail())
-                //ili bech yeb3ath
-                ->from('Sportify.planning@gmail.com')
-                //ili bech ijih l message
-                ->to("maher.karoui@esprit.tn")
-                ->subject("new planning")
-                ->html("<p>bonjour,". $planning->getCours()->getNomCours()."</p> votre cours  Merci pour votre Confiance </p>");
-                
-            
-            /*$message = (new \Swift_Message('new planning'))
-            //ili bech yeb3ath
-            ->setFrom('Planning.Sportify@gmail.com')
-            //ili bech ijih l message
-            ->setTo("maher.karoui@esprit.tn")
-            ->setBody("<p>bonjour,". $planning->getCours()->getNomCours()."</p> votre cours  Merci pour votre Confiance </p>");*/
-        
-        //on envoi l email
-        $mailer->send($message);
-        $this->addFlash('message','votre e-mail a bien été envoyé');
-        
         }
 
         return $this->renderForm('planning/new.html.twig', [

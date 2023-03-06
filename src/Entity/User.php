@@ -5,22 +5,29 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+     
+  
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message:"Merci de taper votre adresse mail")]
     #[Assert\Email(message:"***@***.***")]
+ 
     private ?string $email = null;
 
     #[ORM\Column]
@@ -37,11 +44,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Merci de taper votre prenom")]
     private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    
+
     private ?Roleuser $roleuser = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $IsBlocked = null;
 
     public function getId(): ?int
     {
@@ -165,6 +179,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoleuser(?Roleuser $roleuser): self
     {
         $this->roleuser = $roleuser;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function isIsBlocked(): ?bool
+    {
+        return $this->IsBlocked;
+    }
+
+    public function setIsBlocked(?bool $IsBlocked): self
+    {
+        $this->IsBlocked = $IsBlocked;
 
         return $this;
     }

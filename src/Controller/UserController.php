@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user')]
@@ -49,12 +52,15 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository,UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('plainPassword')->getData();
+            $hashPassword = $passwordHasher->hashPassword($user, $plainPassword);
+            $user->setPassword($hashPassword);
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
@@ -75,4 +81,34 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
-}
+    
+   
+
+    #[Route('/block/{id}', name: 'app_block_utilisateur')]
+       
+        public function blockUser(User $user): Response
+        {
+            $user->setIsBlocked(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+    
+            return $this->redirectToRoute('app_utilisateur_index');
+        }
+        #[Route('/unblock/{id}', name: 'app_unblock_utilisateur')]
+        public function unblockUser(User $user): Response
+        {
+            $user->setIsBlocked(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+    
+            return $this->redirectToRoute('app_utilisateur_index');
+        }
+    
+     
+        
+        
+    }
+
+

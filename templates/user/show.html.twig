@@ -33,6 +33,17 @@
             <tr>
                 <th>role</th>
                 <td>{{ user.roleuser }}</td>
+                {% if not user.blocked %}
+    <form action="{{ path('user_block', {'id': user.id}) }}" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <button type="submit">Block user</button>
+    </form>
+{% else %}
+    <form action="{{ path('user_block', {'id': user.id}) }}" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <button type="submit">Unblock user</button>
+    </form>
+{% endif %}
             </tr>
         </tbody>
     </table>

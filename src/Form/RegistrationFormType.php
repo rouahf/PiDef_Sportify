@@ -11,14 +11,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('nom')
+            ->add('prenom')
             ->add('email')
-            
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -44,8 +47,11 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('nom')
-            ->add('prenom')
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'register',
+               
+            ])
         ;
     }
 

@@ -4,25 +4,35 @@ namespace App\Controller;
 
 use App\Entity\Reclamationn;
 use App\Form\ReclamationnType;
+use Symfony\Component\Mime\Email;
 use App\Repository\ReclamationnRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 #[Route('/reclamationn')]
 class ReclamationnController extends AbstractController
 {
     #[Route('/', name: 'app_reclamationn_index', methods: ['GET'])]
-    public function index(ReclamationnRepository $reclamationnRepository): Response
+    public function index(Request $request , ReclamationnRepository $reclamationnRepository,PaginatorInterface $paginator): Response
     {
+        $donnees = $this->getDoctrine()->getRepository(Reclamationn::class)->findAll();
+        $reclamationns = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            4);
+      
         return $this->render('reclamationn/index.html.twig', [
-            'reclamationns' => $reclamationnRepository->findAll(),
+            'reclamationns' => $reclamationns,
         ]);
     }
+
+    
 
     #[Route('/new', name: 'app_reclamationn_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReclamationnRepository $reclamationnRepository,MailerInterface $mailer): Response
@@ -55,6 +65,7 @@ class ReclamationnController extends AbstractController
             'form' => $form,
 
              ]);
+            
     }
 
     #[Route('/{id}', name: 'app_reclamationn_show', methods: ['GET'])]
@@ -98,4 +109,7 @@ class ReclamationnController extends AbstractController
     {
         return $this->render('/reclamation/data.html.twig');
     }
+   
+     
+
 }

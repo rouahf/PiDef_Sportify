@@ -21,6 +21,15 @@ class TypeController extends AbstractController
         ]);
     }
 
+    #[Route('/ordnom', name: 'order_By_Nom', methods: ['GET'])]
+    public function Torder_By_NomJSON(TypeRepository $typeRepository)
+    {
+      
+        return $this->render('type/index.html.twig', [
+            'types' => $typeRepository->order_By_Nom(),
+        ]);
+        
+    }
     #[Route('/new', name: 'app_type_new', methods: ['GET', 'POST'])]
     public function new(Request $request, TypeRepository $typeRepository): Response
     {

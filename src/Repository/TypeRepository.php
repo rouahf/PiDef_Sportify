@@ -39,6 +39,13 @@ class TypeRepository extends ServiceEntityRepository
         }
     }
 
+    public function order_By_Nom()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.nom_type', 'ASC')
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Type[] Returns an array of Type objects
 //     */

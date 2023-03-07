@@ -16,7 +16,7 @@ class Tool
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank (message: "nom requis") ]
-    #[Assert\Type(type: ['alpha'],message:"The name entered: '{{ value }}' should contain only letters")]
+    #[Assert\Type(type: ['string'],message:"The name entered: '{{ value }}' should be of type {{ type }}")]
     private ?string $name = null;
 
     #[ORM\Column]

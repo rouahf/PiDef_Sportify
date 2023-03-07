@@ -20,7 +20,7 @@ class EventType extends AbstractType
                 'choices'=>[
                     'camping'=>'camping',
                     'ski'=>'ski',
-                    'bach day'=>'beach day',
+                    'beach day'=>'beach day',
                     'obstacle course'=>'obstacle course',
                     'rock climbing'=>'rock climbing'
 

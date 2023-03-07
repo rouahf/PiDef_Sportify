@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +39,7 @@ class EventController extends AbstractController
     }
 
     #[Route('/new', name: 'app_event_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EventRepository $eventRepository): Response
+    public function new(Request $request, EventRepository $eventRepository,FlashyNotifier $flashy): Response
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
@@ -47,11 +48,11 @@ class EventController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $eventRepository->save($event, true);
-            //taawedh el persist flush
+            //taawedh el persist + flush
 
+            $flashy->success('Event created!', 'http://127.0.0.1:8000/event/');
             return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('event/new.html.twig', [
             'event' => $event,
             'form' => $form,
@@ -67,14 +68,14 @@ class EventController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_event_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function edit(Request $request, Event $event, EventRepository $eventRepository,FlashyNotifier $flashy): Response
     {
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $eventRepository->save($event, true);
-
+            $flashy->mutedDark('Event updated!', 'http://127.0.0.1:8000/event/');
             return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -85,12 +86,12 @@ class EventController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_event_delete', methods: ['POST'])]
-    public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function delete(Request $request, Event $event, EventRepository $eventRepository,FlashyNotifier $flashy): Response
     {
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
             $eventRepository->remove($event, true);
         }
-
+        $flashy->warning('Event deleted!', 'http://127.0.0.1:8000/event/');
         return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
     }
 

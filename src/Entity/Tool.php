@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ToolRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ToolRepository::class)]
 class Tool
@@ -14,6 +15,8 @@ class Tool
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message: "nom requis") ]
+    #[Assert\Type(type: ['alpha'],message:"The name entered: '{{ value }}' should contain only letters")]
     private ?string $name = null;
 
     #[ORM\Column]

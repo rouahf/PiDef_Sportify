@@ -14,10 +14,14 @@ class EventType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('dateEvent')
+
             ->add('type', ChoiceType::class,[
                 'choices'=>[
                     'camping'=>'camping',
                     'ski'=>'ski',
+                    'bach day'=>'beach day',
+                    'obstacle course'=>'obstacle course',
                     'rock climbing'=>'rock climbing'
 
                 ],

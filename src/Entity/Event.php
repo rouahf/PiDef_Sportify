@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use http\Message;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
@@ -15,18 +17,26 @@ class Event
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+     #[Groups(['event'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank (message: "nom requis") ]
-    #[Assert\Length(min:10, minMessage:"min:3")]
+    #[Assert\Length(min:4, minMessage:"minimum of 4 letters pls")]
+    #[Groups(['event'])]
+
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+      #[Groups(['event'])]
     private ?string $type = null;
-
-    #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: Tool::class)]
+    #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: Tool::class , cascade:["remove"])]
+     #[Groups(['event'])]
     private Collection $tools;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+   #[Groups(['event'])]
+    private ?\DateTimeInterface $dateEvent = null;
 
     public function __construct()
     {
@@ -88,6 +98,18 @@ class Event
                 $tool->setEvenement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateEvent(): ?\DateTimeInterface
+    {
+        return $this->dateEvent;
+    }
+
+    public function setDateEvent(\DateTimeInterface $dateEvent): self
+    {
+        $this->dateEvent = $dateEvent;
 
         return $this;
     }

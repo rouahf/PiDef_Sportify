@@ -38,7 +38,27 @@ class EventRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    function recherche($nom)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.nom LIKE :nom')
+            ->setParameter('nom', '%' . $nom . '%')
+            ->getQuery()
+            ->getResult();
+    }
+    function orderDate (){
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.dateEvent','DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+    function findDateBetween(){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager
+            ->createQuery("SELECT e FROM App\Entity\Event e  WHERE e.dateEvent BETWEEN '2020-11-02' AND '2021-11-02' ");
+        return $query->getResult();
+    }
 //    /**
 //     * @return Event[] Returns an array of Event objects
 //     */

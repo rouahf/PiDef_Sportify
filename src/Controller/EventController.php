@@ -13,6 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/event')]
 class EventController extends AbstractController
 {
+    #[Route('/recherche', name: 'recherche')]
+    public function rechercheEvent(EventRepository $repo, Request $request): Response
+    {
+        $search = $request->get('search');
+        $list = $repo->recherche($search);
+        return $this->render("event/index.html.twig", ['events' => $list]);
+    }
+
     #[Route('/', name: 'app_event_index', methods: ['GET'])]
     public function index(EventRepository $eventRepository): Response
     {
@@ -35,9 +43,11 @@ class EventController extends AbstractController
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
+        //trecuperi les donnees mel form w elle remplit lobjet $event
 
         if ($form->isSubmitted() && $form->isValid()) {
             $eventRepository->save($event, true);
+            //taawedh el persist flush
 
             return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -82,5 +92,17 @@ class EventController extends AbstractController
         }
 
         return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/sortDate', name: 'app_date_event')]
+    public function showByDate(EventRepository $repo)
+    {
+        $list=$repo->orderDate();
+        return $this->render("event/index.html.twig", ['events' => $list]);
+    }
+    #[Route('/dates', name: 'app_2dates_event')]
+    public function getBetweenDates(EventRepository $repo){
+        $list=$repo->findDateBetween();
+        return $this->render("event/index.html.twig", ['events' => $list]);
     }
 }

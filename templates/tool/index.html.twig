@@ -23,8 +23,9 @@
                 <td>{{ tool.returned ? 'Yes' : 'No' }}</td>
                 <td>{{ tool.evenement.nom }}</td>
                 <td>
-                    <a href="{{ path('app_tool_show', {'id': tool.id}) }}">show</a>
                     <a href="{{ path('app_tool_edit', {'id': tool.id}) }}">edit</a>
+                    <a href="{{ path('app_remove2_tool', {'id': tool.id}) }}">delete</a>
+
                 </td>
             </tr>
         {% else %}

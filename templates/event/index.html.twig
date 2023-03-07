@@ -12,6 +12,7 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Type</th>
+                <th>Date</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,10 +22,12 @@
                 <td>{{ event.id }}</td>
                 <td>{{ event.nom }}</td>
                 <td>{{ event.type }}</td>
+                <td>{{ event.dateEvent ? event.dateEvent|date('d-m-Y') : '' }}</td>
 
                 <td>
-                    <a href="{{ path('app_event_show', {'id': event.id}) }}">show</a>
                     <a href="{{ path('app_event_edit', {'id': event.id}) }}">edit</a>
+                </td>
+                   <td> {{ include('event/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -35,6 +38,11 @@
         </tbody>
     </table>
     <button type="button" class="btn btn-info">  <a  href="{{ path('app_event_new') }}">Create</a></button>
+    <form method="post" action={{ path('recherche') }}><input type="text" name="search">
+        <button type="submit">rechercher</button>
+    </form>
+    <button><a href={{ path('app_date_event') }}> SHOW 3 BY LATEST DATE </a></button>
+    <button><a href={{ path('app_2dates_event') }}> GET DATES BETWEEN </a></button>
 </div>
 
 

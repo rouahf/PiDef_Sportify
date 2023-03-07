@@ -75,6 +75,7 @@ class ToolController extends AbstractController
             $toolRepository->remove($tool, true);
         }
         $flashy->warning('Tool deleted!', 'http://127.0.0.1:8000/tool/');
+
         return $this->redirectToRoute('app_tool_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -93,4 +94,26 @@ class ToolController extends AbstractController
             'tools' => $toolRepository->findAll(),
         ]);
     }
+
+/*
+    #[Route('/stats', name: 'stats',methods: ['GET', 'POST'])]
+    public function statistiques(ToolRepository $repo): Response
+    {
+
+
+        $tools = $repo->findAll();
+        $toolName = [];
+        $toolCount = [];
+
+        foreach ($tools as $tool) {
+            $toolName[] = $tool->getName();
+            $toolCount[] = count($tool->getEvenement());
+
+        }
+        return $this->render("event/stats.html.twig", [
+            'toolName' => json_encode($toolName),
+            'toolCount' => json_encode($toolCount)
+        ]);
+    }
+*/
 }

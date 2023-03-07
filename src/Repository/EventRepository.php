@@ -56,7 +56,7 @@ class EventRepository extends ServiceEntityRepository
     function findDateBetween(){
         $entityManager = $this->getEntityManager();
         $query = $entityManager
-            ->createQuery("SELECT e FROM App\Entity\Event e  WHERE e.dateEvent BETWEEN '2020-11-02' AND '2021-11-02' ");
+            ->createQuery("SELECT e FROM App\Entity\Event e  WHERE e.dateEvent BETWEEN '2018-11-02' AND '2021-11-02' ");
         return $query->getResult();
     }
 //    /**

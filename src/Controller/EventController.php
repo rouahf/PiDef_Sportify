@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/event')]
 class EventController extends AbstractController
 {
+    //const COLOURS ;
     #[Route('/recherche', name: 'recherche')]
     public function rechercheEvent(EventRepository $repo, Request $request): Response
     {
@@ -39,7 +40,7 @@ class EventController extends AbstractController
     }
 
     #[Route('/new', name: 'app_event_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EventRepository $eventRepository,FlashyNotifier $flashy): Response
+    public function new(Request $request, EventRepository $eventRepository, FlashyNotifier $flashy): Response
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
@@ -68,7 +69,7 @@ class EventController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_event_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Event $event, EventRepository $eventRepository,FlashyNotifier $flashy): Response
+    public function edit(Request $request, Event $event, EventRepository $eventRepository, FlashyNotifier $flashy): Response
     {
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
@@ -86,9 +87,9 @@ class EventController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_event_delete', methods: ['POST'])]
-    public function delete(Request $request, Event $event, EventRepository $eventRepository,FlashyNotifier $flashy): Response
+    public function delete(Request $request, Event $event, EventRepository $eventRepository, FlashyNotifier $flashy): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $eventRepository->remove($event, true);
         }
         $flashy->warning('Event deleted!', 'http://127.0.0.1:8000/event/');
@@ -98,12 +99,41 @@ class EventController extends AbstractController
     #[Route('/sortDate', name: 'app_date_event')]
     public function showByDate(EventRepository $repo)
     {
-        $list=$repo->orderDate();
+        $list = $repo->orderDate();
         return $this->render("event/index.html.twig", ['events' => $list]);
     }
+
     #[Route('/dates', name: 'app_2dates_event')]
-    public function getBetweenDates(EventRepository $repo){
-        $list=$repo->findDateBetween();
+    public function getBetweenDates(EventRepository $repo)
+    {
+        $list = $repo->findDateBetween();
         return $this->render("event/index.html.twig", ['events' => $list]);
     }
+    #[Route('/stats', name: 'stats',methods: ['GET', 'POST'])]
+    public function statistiques(EventRepository $repo): Response
+    {
+
+
+        $events = $repo->findAll();
+        $eventName = [];
+        $eventCount = [];
+
+        foreach ($events as $event) {
+            $eventName[] = $event->getNom();
+            $eventCount[] = count($event->getTools());
+
+
+        }
+        /*
+        neededColours = fergha
+            for (i à juska lenght eventCount)
+                neededColours = colour de i
+        */
+        return $this->render("event/stats.html.twig", [
+            'eventName' => json_encode($eventName),
+            'eventCount' => json_encode($eventCount)
+
+        ]);
+    }
+
 }

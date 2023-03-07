@@ -1,0 +1,115 @@
+{% extends 'basee.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">    
+    </div>
+
+
+        <div class="blog-section spad">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="heading_s1 text-center">
+                            <h2 style="color:white;"> Nos produits exclusifs</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tab-style1">
+                            <ul class="nav nav-tabs justify-content-center" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="color:orange;"  id="arrival-tab" data-toggle="tab" href="#arrival" role="tab" aria-controls="arrival" aria-selected="true">Nouveauté</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"style="color:orange;" id="sellers-tab" data-toggle="tab" href="#sellers" role="tab" aria-controls="sellers" aria-selected="false">Best Sellers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color:orange;" id="featured-tab" data-toggle="tab" href="#featured" role="tab" aria-controls="featured" aria-selected="false">Moderne</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color:orange;"id="specialoffer-tab" data-toggle="tab" href="#specialoffer" role="tab" aria-controls="specialoffer" aria-selected="false">Offres Spéciales</a>
+                                </li>
+        
+                            </ul>
+                        </div>
+<div class="col-lg-3 order-lg-first mt-4 pt-2 mt-lg-0 pt-lg-0" style="color:black;">
+            	<div class="sidebar" style="color:black;">
+                   {{ form_start(search)}}
+                	<div class="widget"  style="color:black;">
+                        <h5 class="widget_title" style="color:white;" >Categories</h5>
+                       {{ form_row(search.categories)}}
+                    </div>
+                    <div class="widget" style="color:black;">
+                        <h5 class="widget_title" style="color:white;" >Prix</h5>  
+                        <div class="form-row">
+                            <div class="col-md-6">
+                               {{ form_row(search.minprice)}}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(search.maxprice)}}
+                            </div>
+                        </div>                             
+                    <button class="btn btn-border-fill btn-block">Chercher</button>
+                  {{ form_end(search)}}
+                </div>
+          </div>                             
+                    </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="arrival" role="tabpanel" aria-labelledby="arrival-tab">
+                                <div class="row shop_container">
+                                                  {% if products %}
+                                    {% for product in productNew %}
+                                        {{ include('partials/product.html.twig',{'product': product}) }}
+                                   {% endfor %}
+                  {% else %}
+                    <p>Nous n'avons pas de produit correspondant à vos critères de filtre</p>
+                  {% endif %}
+        
+                                </div>
+                            </div>
+                   
+                            <div class="tab-pane fade" id="sellers" role="tabpanel" aria-labelledby="sellers-tab">
+                                <div class="row shop_container">
+                                    {% for product in productBest %}
+                                        {{ include('partials/product.html.twig',{'product': product}) }}
+                                    {% endfor %}
+        
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="featured" role="tabpanel" aria-labelledby="featured-tab">
+                                <div class="row shop_container">
+                                    {% for product in productFeatured %}
+                                        {{ include('partials/product.html.twig',{'product': product}) }}
+                                    {% endfor %}
+        
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="specialoffer" role="tabpanel" aria-labelledby="specialoffer-tab">
+                                <div class="row shop_container">
+                                    {% for product in productSpecialOffer %}
+                                        {{ include('partials/product.html.twig',{'product': product}) }}
+                                    {% endfor %}
+        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+         
+        </div>
+    
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.js-categories-multiple').select2();
+        });
+    </script>
+{% endblock %}

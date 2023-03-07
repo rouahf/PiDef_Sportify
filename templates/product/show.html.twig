@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <h1>Product</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <th>NameProduct</th>
+                <td>{{ product.nameProduct }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <th>MoreInformations</th>
+                <td>{{ product.moreInformations }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ product.price }}</td>
+            </tr>
+            <tr>
+                <th>IsBest</th>
+                <td>{{ product.isBest ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>IsNew</th>
+                <td>{{ product.isNew ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>IsFeatured</th>
+                <td>{{ product.isFeatured ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>IsSpecialOffer</th>
+                <td>{{ product.isSpecialOffer ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ product.image }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ product.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>{{ product.tags }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ product.slug }}</td>
+            </tr>
+             <tr>
+                {# <th>Category</th>
+                 <td>{{ product.getCategory().getNameCategorie() }}</td> #}
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_prodouit_index') }}">back to list</a>
+
+    <a href="{{ path('app_prodouit_edit', {'id': product.id}) }}">edit</a>
+{% endblock %}

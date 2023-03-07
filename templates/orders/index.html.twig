@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title %}Orders {% endblock %}
+
+{% block body %}
+    <h1>Orders index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>Fullname</th>
+                <th>TransportName</th>
+                <th>TransportPrice</th>
+                <th>LivraisonAdresse</th>
+                <th>IsPaid</th>
+                <th>MoreInformations</th>
+                <th>Quantity</th>
+                <th>SubTotalHT</th>
+                <th>Taxe</th>
+                <th>SubTotalTTC</th>
+                <th>StripeSessionId</th>
+                <th>email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.reference }}</td>
+                <td>{{ order.fullname }}</td>
+                <td>{{ order.transportName }}</td>
+                <td>{{ order.transportPrice }}</td>
+                <td>{{ order.livraisonAdresse }}</td>
+                <td>{{ order.isPaid ? 'Yes' : 'No' }}</td>
+                <td>{{ order.moreInformations }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.subTotalHT }}</td>
+                <td>{{ order.taxe }}</td>
+                <td>{{ order.subTotalTTC }}</td>
+                <td>{{ order.stripeSessionId }}</td>
+                <td>{{ order.getUser().getEmail() }}</td>
+                <td>
+                    <a href="{{ path('app_orders_show', {'id': order.id}) }}">show</a>
+                    <a href="{{ path('app_orders_edit', {'id': order.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_orders_new') }}">Create new</a>
+{% endblock %}

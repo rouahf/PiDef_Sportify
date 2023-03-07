@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -56,7 +58,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?bool $IsBlocked = null;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Orders::class)]
+    private Collection $orders;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Cart::class)]
+    private Collection $carts;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Like::class)]
+    private Collection $likes;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'users')]
+    private ?self $Client = null;
+
+    #[ORM\OneToMany(mappedBy: 'Client', targetEntity: self::class)]
+    private Collection $users;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+        $this->carts = new ArrayCollection();
+        $this->likes = new ArrayCollection();
+        $this->users = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -206,5 +229,137 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * @return Collection<int, Orders>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Orders $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts->add($cart);
+            $cart->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getUser() === $this) {
+                $cart->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Like>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getClient(): ?self
+    {
+        return $this->Client;
+    }
+
+    public function setClient(?self $Client): self
+    {
+        $this->Client = $Client;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(self $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(self $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getClient() === $this) {
+                $user->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
    
 }

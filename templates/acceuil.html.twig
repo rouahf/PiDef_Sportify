@@ -41,23 +41,18 @@
         </div>
         <nav class="canvas-menu mobile-menu">
             <ul>
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./about-us.html">About Us</a></li>
-                <li><a href="./classes.html">Classes</a></li>
-                <li><a href="./services.html">Services</a></li>
-                <li><a href="./team.html">Our Team</a></li>
-                
-                <li><a href="#">Prolfile</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="dropdown">
-                        <li><a href="./about-us.html">About us</a></li>
-                        <li><a href="./class-timetable.html">Classes timetable</a></li>
-                        <li><a href="./bmi-calculator.html">Bmi calculate</a></li>
-                        <li><a href="./team.html">Our team</a></li>
-                        <li><a href="./gallery.html">Gallery</a></li>
-                        <li><a href="./blog.html">Our blog</a></li>
-                        <li><a href="./404.html">404</a></li>
-                    </ul>
+                            <li class="active"><a href="{{ path('app_home')}}">Home</a></li>
+                            <li><a href="{{ path('app_prioritee')}}">About Us</a></li>
+                            <li><a href="{{ path('app_show')}}">Classes</a></li>
+                            <li><a href="{{ path('app_cal')}}">Planning</a></li>
+                            <li><a href="{{ path('app_articles_index_front')}}">Blog</a></li>
+                            <li><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="{{ path('app_productfront')}}">Shop</a></li>
+                                    <li><a href="{{ path('')}}">Event</a></li>
+                                    <li><a href=href="{{ path('')}}">Tools</a></li>
+                                  
+                                </ul>
                 </li>
                 <li><a href="./contact.html">Contact</a></li>
             </ul>
@@ -84,21 +79,18 @@
                 </div>
                 <div class="col-lg-6">
                     <nav class="nav-menu">
-                        <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li class="active"><a href="front/about-us.html">About Us</a></li>
-                            <li><a href="front/class-details.html">Classes</a></li>
-                            <li><a href="front/services.html">Services</a></li>
-                            <li><a href="front/team.html">Our Team</a></li>
+                       <ul>
+                            <li class="active"><a href="{{ path('app_home')}}">Home</a></li>
+                            <li><a href="{{ path('app_prioritee')}}">About Us</a></li>
+                            <li><a href="{{ path('app_show')}}">Classes</a></li>
+                            <li><a href="{{ path('app_cal')}}">Planning</a></li>
+                            <li><a href="{{ path('app_articles_index_front')}}">Blog</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="./about-us.html">About us</a></li>
-                                    <li><a href="./class-timetable.html">Classes timetable</a></li>
-                                    <li><a href="./bmi-calculator.html">Bmi calculate</a></li>
-                                    <li><a href="./team.html">Our team</a></li>
-                                    <li><a href="./gallery.html">Gallery</a></li>
-                                    <li><a href="./blog.html">Our blog</a></li>
-                                    <li><a href="./404.html">404</a></li>
+                                    <li><a href="{{ path('app_productfront')}}">Shop</a></li>
+                                    <li><a href="{{ path('')}}">Event</a></li>
+                                    <li><a href=href="{{ path('')}}">Tools</a></li>
+                                  
                                 </ul>
                             </li>
                             <li><a href="front/contact.html">Contact</a></li>

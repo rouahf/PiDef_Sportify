@@ -13,13 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Vich\UploaderBundle\form\type\VichImageType;
+
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
-use App\Service\JitsiMeetService;
 
 
 #[Route('/cours')]
@@ -40,18 +39,7 @@ class CoursController extends AbstractController
             'cours' => $cours,
         ]);
     }
-    
-    
-  /*  #[Route('/meet/{id}', name: 'cours_meet')]
-    public function showMeet(Cours $cours): Response
-    {
-        $roomName = 'cours-' . $cours->getId();
-        $jitsiMeet = $this->render('cours/jitsi.html.twig', ['roomName' => $roomName])->getContent();
-        return $this->render('cours/jitsi.html.twig', [
-            'cours' => $cours,
-            'jitsiMeet' => $jitsiMeet,
-        ]);
-    }*/
+
   
     #[Route('/static', name: 'app_cours_static')]
     public function yourAction(EntityManagerInterface $entityManager)
@@ -102,7 +90,7 @@ class CoursController extends AbstractController
         
     }
 
-    #[Route('/front', name: 'app_show', methods: ['GET'])]
+    #[Route('/front', name: 'app_show_cours', methods: ['GET'])]
     public function showf(Request $request,CoursRepository $coursRepository , PaginatorInterface $paginator): Response
     {
        
@@ -152,7 +140,7 @@ class CoursController extends AbstractController
     ->from('client@gmail.com')
     ->to('adminSportify@yahooo.com')
     ->subject('NOUVEAU COURS !!!!')
-    ->html('<p> nom de cours :'. $cour->getNomCours().' </p>');
+    ->html('<p> nom de cours : </p>');
 
 
 $mailer->send($email);
@@ -194,21 +182,8 @@ $this->addFlash(
     #[Route('/{id}', name: 'app_cours_show', methods: ['GET'])]
     public function show(Cours $cour): Response
     {
-       
-
         return $this->render('cours/show.html.twig', [
             'cour' => $cour,
-        ]);
-    }
-    #[Route('/meet/{id}', name: 'app-meet', methods: ['GET'])]
-    public function showMeet(Cours $cour): Response
-    {
-        $roomName = 'cours-' . $cour->getId();
-        $jitsiMeet = $this->render('cours/jitsi.html.twig',['roomName' => $roomName])->getContent();
-
-        return $this->render('cours/showMeet.html.twig', [
-            'cour' => $cour,
-            'jitsiMeet' => $jitsiMeet,
         ]);
     }
 

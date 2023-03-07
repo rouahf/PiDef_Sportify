@@ -16,6 +16,46 @@
     <link rel="stylesheet" href="{{asset('Front/css/magnific-popup.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('Front/css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('Front/css/style.css')}}" type="text/css">
+    <style>
+    .section-cours {
+  padding: 50px 0;
+  background-color: #111111;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  border-radius: 10px 10px 0 0;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #FF7F00;
+  border-color: #1abc9c;
+}
+
+.btn-primary:hover {
+  background-color: #FF7F00;
+  border-color: #148f77;
+}
+ 
+    </style>
         {% endblock %}
 
         <div id="preloder">
@@ -144,36 +184,35 @@
                     <div class="section-title">
                         <span>What we do?</span>
                         <h2>PUSH YOUR LIMITS FORWARD</h2>
-                        <li><a href="{{ path('order_By_datef')}}">Trie par Date</a></li>
-                    *
+                        {{knp_pagination_render(cours) }}
                     </div>
                 </div>
             </div>
 
- {% for cour in cours %}
-
+<section class="section-cours">
+  <div class="container">
+    <div class="row">
       
-      <div class="container">
-           <div class="row">
-                <div class="col-lg-3 order-lg-1 col-md-6 p-0">
-                    <div class="ss-pic">
-                        <img src="/uploads/{{ cour.image }}" alt="cours" >
-                    </div>
-                </div>
-                <div class="col-lg-3 order-lg-2 col-md-6 p-0">
-                    <div class="ss-text">
-                        <h4>{{ cour.nomCours }}</h4>
-                        <p>{{ cour.activite }}</p>
-                        <a href="#">Explore</a>
-                    </div>
-                </div>
-              
+    {% for cour in cours %}
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card h-100">
+      <img class="card-img-top" src="/uploads/{{ cour.image }}" alt="cours">
+      <div class="card-body">
+        <h4 class="card-title">{{ cour.nomCours }}</h4>
+        <p class="card-text">{{ cour.activite }}</p>
+        <a href="{{ path('app-meet', {'id': cour.id}) }}" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
 
-             {% endfor %}
-                
-          </div>
-         
-    </section>
+
+    </div>
+  </div>
+</section>
+
+
+
      <div class="container">
           
           </div>

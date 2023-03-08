@@ -8,10 +8,13 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-/.idea/git_toolbox_prj.xml
-/.idea/modules.xml
-/.idea/php.xml
-/.idea/phpunit.xml
-/.idea/PiDef_Sportify.iml
-/.idea/vcs.xml
-/.idea/workspace.xml
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###

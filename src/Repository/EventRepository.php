@@ -49,7 +49,7 @@ class EventRepository extends ServiceEntityRepository
     function orderDate (){
         return $this->createQueryBuilder('e')
             ->orderBy('e.dateEvent','DESC')
-            ->setMaxResults(3)
+            //->setMaxResults(3)
             ->getQuery()
             ->getResult();
     }

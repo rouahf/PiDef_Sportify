@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>Statistiques</h1>
+        <h1>Stats: events by tools rented</h1>
         <canvas id="tools" width="400" height="100"></canvas>
 
 
@@ -25,7 +25,7 @@
                 datasets: [{
                     label: "Répartition des events",
                     data:{{ eventCount |raw }},
-                    backgroundColor: ["red","blue","green","yellow","orange"]
+                    backgroundColor: ["red","blue","green","yellow","orange","purple","pink","white","brown","black","gray"]
 
                 }]
             }

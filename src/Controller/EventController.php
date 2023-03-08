@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twilio\Rest\Client;
 
 #[Route('/event')]
 class EventController extends AbstractController
@@ -50,6 +51,21 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $eventRepository->save($event, true);
             //taawedh el persist + flush
+            // envoi de l'sms
+            $accountSid = 'AC3b21d23b8d2a2b69b3da427c1b76d1ac';
+            $authToken = '4ff243c9df6dd9d4bd269a6732a87897';
+            $client = new Client($accountSid, $authToken);
+
+            $message = $client->messages->create(
+                '+21650307811', // replace with admin's phone number
+                [
+                    'from' => '+15076974179', // replace with your Twilio phone number
+                    'body' => 'New event juste added: ' . $form->get('nom')->getData(),
+                ]
+            );
+
+
+
 
             $flashy->success('Event created!', 'http://127.0.0.1:8000/event/');
             return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);

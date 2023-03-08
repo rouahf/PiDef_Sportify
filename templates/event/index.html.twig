@@ -41,8 +41,10 @@
     <form method="post" action={{ path('recherche') }}><input type="text" name="search">
         <button type="submit">rechercher</button>
     </form>
-    <button><a href={{ path('app_date_event') }}> SHOW 3 BY LATEST DATE </a></button>
-    <button><a href={{ path('app_2dates_event') }}> GET DATES BETWEEN </a></button>
+    <button><a href={{ path('app_date_event') }}> sort by latest date </a></button>
+
+    <button><a href={{ path('stats') }}> show stats by number of tools rented </a></button>
+
 </div>
 
 

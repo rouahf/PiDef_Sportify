@@ -1,9 +1,0 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-bank_get_qr_code:
-    path: '/bank/account/{id}/qrcode'
-    controller: 'App\Controller\ProductfrontController::getQrCodeForProduct'
-    methods: ['GET']
-    requirements:
-        id: '\d+'
